@@ -1,10 +1,13 @@
 package rodrigo.viano.pshgame.model;
 
 import java.io.Serializable;
+import java.time.LocalDateTime;
 
 import javax.persistence.*;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
+import org.hibernate.annotations.CreationTimestamp;
 
 @Entity
 @Table(name = "players")
@@ -25,6 +28,10 @@ public class Player implements Serializable {
     @JsonIgnoreProperties("player")
     private Stat stat;
 
+    @CreationTimestamp
+    @Column(updatable = false)
+    private LocalDateTime createDateTime;
+    
     public Player() {
     }
 
@@ -56,5 +63,14 @@ public class Player implements Serializable {
 
     public String getImage() {
         return this.image;
+    }
+
+    @PrePersist
+    public void setCreationDateTime() {
+        this.createDateTime = LocalDateTime.now();
+    }
+
+     public LocalDateTime getCreationDateTime() {
+        return this.createDateTime;
     }
 }

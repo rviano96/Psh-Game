@@ -8,6 +8,8 @@ import org.springframework.scheduling.annotation.Scheduled;
 import rodrigo.viano.pshgame.business.IStatBusiness;
 import rodrigo.viano.pshgame.business.exceptions.BusinessException;
 
+import java.util.Random;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -16,17 +18,23 @@ import org.slf4j.LoggerFactory;
 public class ScheduledEvents {
 	private Logger log = LoggerFactory.getLogger(this.getClass());
 
-    @Autowired
-    private IStatBusiness statService;
-    
-    @Scheduled(fixedDelayString = "${generate.new.stats}")
+	@Autowired
+	private IStatBusiness statService;
+	Random r = new Random();
+	int low = 0;
+	int high = 10;
+	int quantity;
+
+	@Scheduled(fixedDelayString="${generate.new.stats}")
+
 	public void purgeAuthTokens() {
 		try {
-			log.info("Generating new stats");
-			statService.generateStats();
+			quantity = r.nextInt(high - low) + low;
+			log.info("Generating {} new statistics.", quantity);
+			statService.generateStats(quantity);
 		} catch (BusinessException e) {
 			log.error(e.getMessage(), e);
 		}
 	}
 
- }
+}

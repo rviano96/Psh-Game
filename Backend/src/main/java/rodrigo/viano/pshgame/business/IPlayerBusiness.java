@@ -1,11 +1,10 @@
 package rodrigo.viano.pshgame.business;
 
-import java.util.List;
+import java.time.LocalDateTime;
 
 import rodrigo.viano.pshgame.business.exceptions.BusinessException;
-import rodrigo.viano.pshgame.model.Player;
+import rodrigo.viano.pshgame.model.dto.PlayerDto;
 
 public interface IPlayerBusiness {
-    public List<Player> findTop10() throws BusinessException;
-
+    public PlayerDto findTop10() throws BusinessException;
 }
