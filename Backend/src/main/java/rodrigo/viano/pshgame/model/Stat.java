@@ -5,6 +5,7 @@ import javax.persistence.*;
 import org.hibernate.annotations.CreationTimestamp;
 
 import java.io.Serializable;
+import java.sql.Timestamp;
 import java.time.LocalDateTime;
 
 @Entity
@@ -21,7 +22,7 @@ public class Stat implements Serializable {
 
     @CreationTimestamp
     @Column(updatable = false)
-    private LocalDateTime createDateTime;
+    private Timestamp createDateTime;
 
     @OneToOne(fetch = FetchType.LAZY, cascade=CascadeType.ALL, optional = false)
     @JoinColumn(name = "player_id", nullable = false)
@@ -45,7 +46,9 @@ public class Stat implements Serializable {
 
     @PrePersist
     public void setCreationDateTime() {
-        this.createDateTime = LocalDateTime.now();
+        LocalDateTime now = LocalDateTime.now();
+        Timestamp timestamp = Timestamp.valueOf(now);
+        this.createDateTime = timestamp;
     }
 
     public int getScore() {
@@ -60,7 +63,7 @@ public class Stat implements Serializable {
         return this.player;
     }
     
-    public LocalDateTime getCreationDateTime() {
+    public Timestamp getCreationDateTime() {
         return this.createDateTime;
     }
 }

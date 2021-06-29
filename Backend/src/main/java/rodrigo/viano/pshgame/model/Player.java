@@ -1,6 +1,7 @@
 package rodrigo.viano.pshgame.model;
 
 import java.io.Serializable;
+import java.sql.Timestamp;
 import java.time.LocalDateTime;
 
 import javax.persistence.*;
@@ -30,7 +31,7 @@ public class Player implements Serializable {
 
     @CreationTimestamp
     @Column(updatable = false)
-    private LocalDateTime createDateTime;
+    private Timestamp createDateTime;
     
     public Player() {
     }
@@ -61,16 +62,22 @@ public class Player implements Serializable {
         return this.stat;
     }
 
+    public void setStat(Stat stat){
+        this.stat = stat;
+    }
+
     public String getImage() {
         return this.image;
     }
 
     @PrePersist
     public void setCreationDateTime() {
-        this.createDateTime = LocalDateTime.now();
+        LocalDateTime now = LocalDateTime.now();
+        Timestamp timestamp = Timestamp.valueOf(now);
+        this.createDateTime = timestamp;
     }
 
-     public LocalDateTime getCreationDateTime() {
+     public Timestamp getCreationDateTime() {
         return this.createDateTime;
     }
 }

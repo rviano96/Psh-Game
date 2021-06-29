@@ -4,6 +4,8 @@ import static org.junit.jupiter.api.Assertions.assertIterableEquals;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 
+import java.sql.Timestamp;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -20,6 +22,7 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 import rodrigo.viano.pshgame.business.exceptions.BusinessException;
 import rodrigo.viano.pshgame.model.Player;
 import rodrigo.viano.pshgame.model.Stat;
+import rodrigo.viano.pshgame.model.dto.PlayerDto;
 import rodrigo.viano.pshgame.persistence.PlayerRepository;
 
 @ExtendWith(MockitoExtension.class)
@@ -33,35 +36,37 @@ public class PlayerBusinessTest {
     
     @Test
     public void testGetTop10Players() throws BusinessException {
-        /*Player player = buildPlayer("test", "test_url");
-        List<Stat> stats = new ArrayList<>();
+
+        List<Player> players = new ArrayList<>();
         Random r = new Random();
         int low = 0;
         int high = 100;
-        int result = 0;
-
-        for (int i = 0; i < 10; i++) {
-            result = r.nextInt(high - low) + low;
-            stats.add(buildStat(player, result));
+        int score = 0;
+        
+        for (int i = 0; i < 5; i++) {
+            score = r.nextInt(high - low) + low;
+            players.add(buildPlayer("test"+i, "test_url"+i,buildStat(score)));
         }
-        Mockito.when(playerDao.findTop10ByOrderByStatScoreDesc()).thenReturn(stats);
-        List<Stat> statResults = playerService.findTop10();
-        assertIterableEquals(stats, statResults);
-        verify(playerDao, times(1)).findTop10ByOrderByStatScoreDesc();*/
+
+        PlayerDto playerDtoResponse = new PlayerDto(players,Timestamp.valueOf( LocalDateTime.now()));
+        Mockito.when(playerDao.findTop10ByOrderByStatScoreDesc()).thenReturn(players);
+        PlayerDto playerResults = playerService.findTop10();
+        assertIterableEquals(playerDtoResponse.getPlayer(), playerResults.getPlayer());
+        verify(playerDao, times(1)).findTop10ByOrderByStatScoreDesc();
     }
 
-    private Player buildPlayer(String nickname, String image) {
+    private Player buildPlayer(String nickname, String image, Stat stat) {
         Player player = new Player();
         player.setImage(image);
         player.setNickname(nickname);
+        player.setStat(stat);
         return player;
     }
 
-    private Stat buildStat(Player player, int score) {
+    private Stat buildStat(int score) {
         Stat stat = new Stat();
         stat.setCreationDateTime();
         stat.setScore(score);
-        stat.setPlayer(player);
         return stat;
     }
 }

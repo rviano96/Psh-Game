@@ -1,6 +1,6 @@
 package rodrigo.viano.pshgame.business.implementation;
 
-import java.time.LocalDateTime;
+import java.sql.Timestamp;
 import java.util.List;
 
 import org.slf4j.Logger;
@@ -24,7 +24,7 @@ public class PlayerBusiness implements IPlayerBusiness {
     public PlayerDto findTop10() throws BusinessException {
         try {
             List<Player> players = playerDao.findTop10ByOrderByStatScoreDesc();
-            LocalDateTime lastTimeUpdated = playerDao.getLastTimeUpdated();
+            Timestamp lastTimeUpdated = playerDao.getLastTimeUpdated();
             PlayerDto playerDto = new PlayerDto(players, lastTimeUpdated);
             return playerDto;
         } catch (Exception e) {

@@ -1,15 +1,15 @@
 package rodrigo.viano.pshgame.model.dto;
 
-import java.time.LocalDateTime;
+import java.sql.Timestamp;
 import java.util.List;
 
 import rodrigo.viano.pshgame.model.Player;
 
 public class PlayerDto {
     private List<Player> player;
-    private LocalDateTime lastTimeUpdated;
+    private Timestamp lastTimeUpdated;
 
-    public PlayerDto(List<Player> player, LocalDateTime lastTimeUpdated) {
+    public PlayerDto(List<Player> player, Timestamp lastTimeUpdated) {
         this.player = player;
         this.lastTimeUpdated = lastTimeUpdated;
     }
@@ -25,11 +25,11 @@ public class PlayerDto {
         this.player = player;
     }
 
-    public LocalDateTime getLastTimeUpdated() {
+    public Timestamp getLastTimeUpdated() {
         return lastTimeUpdated;
     }
 
-    public void setLastTimeUpdated(LocalDateTime lastTimeUpdated) {
+    public void setLastTimeUpdated(Timestamp lastTimeUpdated) {
         this.lastTimeUpdated = lastTimeUpdated;
     }
 
