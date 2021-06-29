@@ -31,7 +31,7 @@ export class ReportComponent implements OnInit, OnDestroy {
     this.getTop10();
     this.intervalId = setInterval(() => {
       this.getTop10();
-    }, 5000);
+    }, 10000);
   }
 
   getTop10() {
