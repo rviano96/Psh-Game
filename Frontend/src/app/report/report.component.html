@@ -1,0 +1,55 @@
+<div class="reportTable">
+  <ngx-datatable class="material expandable" [columnMode]="ColumnMode.force" [headerHeight]="50" [footerHeight]="50"
+    rowHeight="auto" [rows]="players" [sortType]="SortType.multi">
+
+    <ngx-datatable-column [width]="15" [resizeable]="false" [sortable]="false" [draggable]="false"
+      [canAutoResize]="false">
+      <ng-template ngx-datatable-header-template>
+        <span>#</span>
+      </ng-template>
+      <ng-template let-rowIndex="rowIndex" ngx-datatable-cell-template>
+        <span>{{rowIndex+1}}</span>
+      </ng-template>
+    </ngx-datatable-column>
+
+    <ngx-datatable-column [flexGrow]="1">
+      <ng-template ngx-datatable-header-template style="display: flex;
+      justify-content: center;" >
+        <span>Picture</span>
+      </ng-template>
+      <ng-template let-row="row" ngx-datatable-cell-template tyle="display: flex;
+      justify-content: center;">
+        <app-picture [url]="row.image" ></app-picture>
+      </ng-template>
+    </ngx-datatable-column>
+
+    <ngx-datatable-column [sortable]="true" [flexGrow]="2">
+      <ng-template ngx-datatable-header-template>
+        <span>Nickname</span>
+      </ng-template>
+      <ng-template let-row="row" ngx-datatable-cell-template>
+        <span>{{row.nickname}}</span>
+
+      </ng-template>
+    </ngx-datatable-column>
+
+    <ngx-datatable-column [sortable]="true" [width]="25" >
+      <ng-template ngx-datatable-header-template>
+        <span>Score</span>
+      </ng-template>
+      <ng-template let-row="row" ngx-datatable-cell-template>
+        {{row.stat.score}}
+      </ng-template>
+    </ngx-datatable-column>
+    <ngx-datatable-footer *ngIf="lastTimeUpdated">
+      <ng-template ngx-datatable-footer-template>
+        <div class="footer">
+          <div>
+            <strong>Last time updated</strong>: {{lastTimeUpdated | date:"dd/MM/yyyy HH:mm"}} 
+            <button mat-raised-button style="border: 1px solid black; margin-top: auto; margin-bottom: auto;" (click)="exportReport()">Download report</button>
+          </div>
+        </div>
+      </ng-template>
+    </ngx-datatable-footer>
+  </ngx-datatable>
+</div>

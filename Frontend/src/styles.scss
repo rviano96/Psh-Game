@@ -1,0 +1,19 @@
+/* You can add global styles to this file, and also import other style files */
+.datatable-header-cell{
+    color: #495057 !important;
+    background-color: #e9ecef;
+    display: flex !important;
+    justify-content: center !important;
+}
+.datatable-row-wrapper:nth-child(even){
+    background-color: #e9ecef;
+}
+.datatable-body-cell{
+    display: flex !important;
+    justify-content: center !important;
+    align-items: center;
+    padding: 10px;
+}
+.datatable-footer-inner{
+    overflow: hidden;
+}
