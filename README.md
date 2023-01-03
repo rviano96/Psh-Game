@@ -1,4 +1,6 @@
 # Psh-Game
+## Technical challenge
+* Role: Full stack dev
 Segunda parte del examen técnico.
 
 ## Directorios
